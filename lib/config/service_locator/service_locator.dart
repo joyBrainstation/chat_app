@@ -6,6 +6,10 @@ import 'package:chat_app/features/authentication/data/data_sources/authenticatio
 import 'package:chat_app/features/authentication/data/data_sources/firebase_authentication_data_source.dart';
 import 'package:chat_app/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:chat_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:chat_app/features/contacts/data/data_sources/contacts_data_source.dart';
+import 'package:chat_app/features/contacts/data/data_sources/contacts_firebase_data_source.dart';
+import 'package:chat_app/features/contacts/data/repositories/contact_repository_impl.dart';
+import 'package:chat_app/features/contacts/domain/repositories/contact_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -22,6 +26,15 @@ void setupServiceLocator() {
   sl.registerFactory<AuthenticationRepository>(
     () => AuthenticationRepositoryImpl(
       sl<AuthenticationDataSource>(),
+    ),
+  );
+
+  sl.registerFactory<ContactsDataSource>(
+    () => ContactFirebaseDataSource(),
+  );
+  sl.registerFactory<ContactRepository>(
+    () => ContactRepositoryImpl(
+      sl<ContactsDataSource>(),
     ),
   );
 }

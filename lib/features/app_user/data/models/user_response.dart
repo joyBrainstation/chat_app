@@ -15,6 +15,16 @@ class UserResponse {
     this.token,
   );
 
+  factory UserResponse.fromJson(Map<String, dynamic> json) {
+    return UserResponse(
+      json["id"],
+      json["name"],
+      json["email"],
+      json["photo"],
+      json["token"],
+    );
+  }
+
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
