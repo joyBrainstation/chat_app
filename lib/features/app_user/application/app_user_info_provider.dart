@@ -29,7 +29,7 @@ class AppUserInfoProvider {
     LogoutAppUserUseCase logoutAppUserUseCase = LogoutAppUserUseCase();
     await logoutAppUserUseCase();
     if (context.mounted) {
-      GoRouter.of(context).pushReplacement("/");
+      GoRouter.of(context).go("/");
     }
   }
 }

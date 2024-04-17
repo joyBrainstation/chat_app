@@ -8,7 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/user.dart';
 
 class AppUserInfoView extends ConsumerWidget {
-  const AppUserInfoView({super.key});
+  const AppUserInfoView({super.key, this.otherUser});
+  final User? otherUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +21,7 @@ class AppUserInfoView extends ConsumerWidget {
 
   Widget _buildProfileSection(
       BuildContext context, AppUserInfoProvider provider) {
-    User? user = provider.fetchUserData();
+    User? user = otherUser ?? provider.fetchUserData();
     return ListTile(
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),

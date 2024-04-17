@@ -6,6 +6,10 @@ import 'package:chat_app/features/authentication/data/data_sources/authenticatio
 import 'package:chat_app/features/authentication/data/data_sources/firebase_authentication_data_source.dart';
 import 'package:chat_app/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:chat_app/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:chat_app/features/chat/data/data_sources/chat_data_source.dart';
+import 'package:chat_app/features/chat/data/data_sources/chat_firebase_data_source.dart';
+import 'package:chat_app/features/chat/data/repositories/chat_repository_impl.dart';
+import 'package:chat_app/features/chat/domain/repositories/chat_repository.dart';
 import 'package:chat_app/features/contacts/data/data_sources/contacts_data_source.dart';
 import 'package:chat_app/features/contacts/data/data_sources/contacts_firebase_data_source.dart';
 import 'package:chat_app/features/contacts/data/repositories/contact_repository_impl.dart';
@@ -37,4 +41,7 @@ void setupServiceLocator() {
       sl<ContactsDataSource>(),
     ),
   );
+
+  sl.registerFactory<ChatDataSource>(() => ChatFirebaseDataSource());
+  sl.registerFactory<ChatRepository>(() => ChatRepositoryImpl(sl<ChatDataSource>()));
 }
