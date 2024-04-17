@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../config/service_locator/service_locator.dart';
 import '../../../../core/components/domain/user_case/base_use_case.dart';
-import '../entities/user.dart';
+import '../../../app_user/domain/entities/user.dart';
 
 class SignInUseCase extends BaseUseCase<NoInput, User, ErrorData> {
   @override

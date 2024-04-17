@@ -2,8 +2,8 @@ import 'package:chat_app/core/components/data/models/error_response.dart';
 import 'package:chat_app/core/components/domain/entity/error_data.dart';
 import 'package:chat_app/core/components/domain/entity/no_input.dart';
 import 'package:chat_app/features/authentication/data/data_sources/authentication_data_source.dart';
-import 'package:chat_app/features/authentication/data/models/user_response.dart';
-import 'package:chat_app/features/authentication/domain/entities/user.dart';
+import 'package:chat_app/features/app_user/data/models/user_response.dart';
+import 'package:chat_app/features/app_user/domain/entities/user.dart';
 import 'package:chat_app/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
 

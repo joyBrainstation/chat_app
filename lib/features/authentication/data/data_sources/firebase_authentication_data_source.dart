@@ -1,6 +1,7 @@
+import 'package:chat_app/common/utils/constants.dart';
 import 'package:chat_app/core/components/data/models/error_response.dart';
 import 'package:chat_app/features/authentication/data/data_sources/authentication_data_source.dart';
-import 'package:chat_app/features/authentication/data/models/user_response.dart';
+import 'package:chat_app/features/app_user/data/models/user_response.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,23 +28,27 @@ class FirebaseAuthenticationDataSource extends AuthenticationDataSource {
 
         final UserCredential userCredential =
             await _firebaseAuth.signInWithCredential(credential);
+        if (userCredential.user != null) {
+          final user = UserResponse(
+            userCredential.user!.uid,
+            userCredential.user!.displayName ?? '',
+            userCredential.user!.email ?? '',
+            userCredential.user!.photoURL ?? '',
+            null,
+          );
 
-        final user = UserResponse(
-          userCredential.user!.uid,
-          userCredential.user!.displayName ?? '',
-          userCredential.user!.email ?? '',
-          null,
-        );
-
-        Either<UserResponse, ErrorResponse> saveUserData =
-            await _saveUserDataToFirestore(user);
-        return saveUserData;
+          Either<UserResponse, ErrorResponse> saveUserData =
+              await _saveUserDataToFirestore(user);
+          return saveUserData;
+        } else {
+          throw Constants.loginFailedMessage;
+        }
       }
     } catch (e) {
       return Right(ErrorResponse(e.toString()));
     }
 
-    return Right(ErrorResponse("Could not login"));
+    return Right(ErrorResponse(Constants.loginFailedMessage));
   }
 
   Future<Either<UserResponse, ErrorResponse>> _saveUserDataToFirestore(
