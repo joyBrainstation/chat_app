@@ -1,4 +1,5 @@
 import 'package:chat_app/config/environment/environment_types.dart';
+import 'package:chat_app/config/service_locator/service_locator.dart';
 import 'package:chat_app/core/app/application.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,8 @@ abstract class Env {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+
+    setupServiceLocator();
   }
 
   void run() {

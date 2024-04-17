@@ -1,0 +1,3 @@
+class NoOutput {
+  NoOutput();
+}

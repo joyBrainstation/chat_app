@@ -1,0 +1,4 @@
+class NoInput{
+  NoInput();
+}
+

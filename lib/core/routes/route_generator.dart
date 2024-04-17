@@ -18,7 +18,7 @@ class RouteGenerator {
       GoRoute(
         name: LoginScreen.path,
         path: "/${LoginScreen.path}",
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) =>  LoginScreen(),
       ),
     ],
   );
