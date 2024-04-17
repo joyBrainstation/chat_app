@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "418488088168",
+    "project_id": "bs23-chat-app",
+    "storage_bucket": "bs23-chat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418488088168:android:7b449b775eccfc3044addd",
+        "android_client_info": {
+          "package_name": "com.bs23.chat_app.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6uUjZdFSzSaeCzNKJ1S6f2wAyNIOr9LI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
