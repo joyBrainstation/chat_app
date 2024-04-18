@@ -1,16 +1,46 @@
-# chat_app
+# Firebase Chat App with Flutter & Riverpod
 
-A new Flutter project.
+This is a basic chat application built with Flutter for mobile and Firebase for backend services. It utilizes Riverpod for state management.
 
-## Getting Started
+# Features
+*  ***User Authentication***: Users can sign up and log with google and logout.
+* ***Contact List***: Users can see a list of other registered users.
+* ***Chat Screen***: Users can chat with each other in real-time.
+* ***Push Notifications***: Users receive notifications for new messages.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+# Running the app
+The app designed in such a way that it can have multiple build environment.
+For our purposes, we have configured only one environment eg. development
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The development build environment entry point is located in 
+```agsl
+lib/config/environment/env_development.dart
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To run the application, one can use the following flutter command
+
+```agsl
+flutter run --target lib/config/environment/env_development.dart
+```
+
+
+# Code structure
+This project demonstrates a feature-first approach to clean architecture using Flutter. It prioritizes separation of concerns and makes it easy to switch out backend implementations without affecting the presentation and domain layers.
+
+### Feature-First Approach 
+This project builds features independently, each following the clean architecture structure. This allows for:
+* ***Incremental Development***: Features can be developed and tested in isolation.
+* ***Easier Maintenance***: Changes to a specific feature are less likely to impact other parts of the application.
+
+### Firebase Agnostic Design
+The presentation and domain layers are designed to be independent of Firebase. This means:
+* ***No Firebase dependencies***: These layers don't reference any Firebase-specific classes or functions.
+* ***Abstracted Data Access***: The repository provides an interface for data access, allowing for alternative implementations (e.g., local storage).
+
+### Implementing a New Data Source
+If you don't want to use Firebase, you only need to modify the data source layer:
+* Implement a new concrete data source class that interacts with your chosen persistence solution.
+* Update the repository to use the new data source implementation.
+* The presentation and domain layers remain completely unaffected.
+
