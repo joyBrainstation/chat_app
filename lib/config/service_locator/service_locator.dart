@@ -14,6 +14,10 @@ import 'package:chat_app/features/contacts/data/data_sources/contacts_data_sourc
 import 'package:chat_app/features/contacts/data/data_sources/contacts_firebase_data_source.dart';
 import 'package:chat_app/features/contacts/data/repositories/contact_repository_impl.dart';
 import 'package:chat_app/features/contacts/domain/repositories/contact_repository.dart';
+import 'package:chat_app/features/push_notification/data/data_source/firebase_push_notification_data_source.dart';
+import 'package:chat_app/features/push_notification/data/data_source/push_notification_data_source.dart';
+import 'package:chat_app/features/push_notification/data/repositories/push_notification_repository_impl.dart';
+import 'package:chat_app/features/push_notification/domain/repositories/push_notification_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -43,5 +47,14 @@ void setupServiceLocator() {
   );
 
   sl.registerFactory<ChatDataSource>(() => ChatFirebaseDataSource());
-  sl.registerFactory<ChatRepository>(() => ChatRepositoryImpl(sl<ChatDataSource>()));
+  sl.registerFactory<ChatRepository>(
+      () => ChatRepositoryImpl(sl<ChatDataSource>()));
+
+  sl.registerFactory<PushNotificationDataSource>(
+      () => FirebasePushNotificationDataSource());
+  sl.registerFactory<PushNotificationRepository>(
+    () => PushNotificationRepositoryImpl(
+      sl<PushNotificationDataSource>(),
+    ),
+  );
 }

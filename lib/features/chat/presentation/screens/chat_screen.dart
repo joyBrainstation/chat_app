@@ -133,7 +133,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   void _sendMessage() {
     ref
         .read(chatProvider.notifier)
-        .sendChat(widget.user.id, _messageController.text);
+        .sendChat(widget.user, _messageController.text);
     _messageController.text = "";
   }
 }

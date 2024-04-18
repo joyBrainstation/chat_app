@@ -1,6 +1,7 @@
 import 'package:chat_app/config/environment/environment_types.dart';
 import 'package:chat_app/config/service_locator/service_locator.dart';
 import 'package:chat_app/core/app/application.dart';
+import 'package:chat_app/features/push_notification/domain/repositories/push_notification_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,8 @@ abstract class Env {
         options: DefaultFirebaseOptions.currentPlatform);
 
     setupServiceLocator();
+
+    sl<PushNotificationRepository>().requestPermission();
   }
 
   void run() {

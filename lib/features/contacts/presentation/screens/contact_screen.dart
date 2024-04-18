@@ -2,11 +2,15 @@ import 'package:chat_app/features/app_user/presentation/widgets/app_user_info_vi
 import 'package:chat_app/features/contacts/application/contact_provider.dart';
 import 'package:chat_app/features/contacts/domain/entities/contact_list.dart';
 import 'package:chat_app/features/contacts/presentation/widgets/user_item_view.dart';
+import 'package:chat_app/features/push_notification/domain/entities/push_notification.dart';
+import 'package:chat_app/features/push_notification/domain/repositories/push_notification_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../config/service_locator/service_locator.dart';
 import '../../../app_user/domain/entities/user.dart';
 
 class ContactScreen extends ConsumerStatefulWidget {
@@ -21,6 +25,17 @@ class _ContactScreenState extends ConsumerState<ContactScreen> {
   void initState() {
     super.initState();
     _fetchContacts();
+    _setupPushNotificationReceiver();
+  }
+
+  void _setupPushNotificationReceiver() {
+    sl<PushNotificationRepository>().initializePushNotification();
+    FirebaseMessaging.onMessage.listen((event) {
+      PushNotification notification = PushNotification(
+          title: event.notification?.title ?? "",
+          body: event.notification?.body ?? "");
+      sl<PushNotificationRepository>().onNotificationReceived(notification);
+    });
   }
 
   Future<void> _fetchContacts() async {
