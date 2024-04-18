@@ -21,7 +21,7 @@ class LoginScreen extends ConsumerWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              _buildGetStartedLabel(context),
+              _buildGetStartedLabel(context,ref),
               _buildArrowWidget(posX),
               _buildSigninWithGoogleButton(context, posX, signInProvider),
               GestureDetector(
@@ -42,12 +42,18 @@ class LoginScreen extends ConsumerWidget {
       .bodyLarge
       ?.copyWith(fontWeight: FontWeight.bold);
 
-  Widget _buildGetStartedLabel(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        "Get Started",
-        style: _headerTextStyle(context),
+  Widget _buildGetStartedLabel(BuildContext context, WidgetRef ref) {
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: (){
+        ref.read(buttonPositionProvider.notifier).state = 50;
+      },
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(
+          "Get Started",
+          style: _headerTextStyle(context),
+        ),
       ),
     );
   }
