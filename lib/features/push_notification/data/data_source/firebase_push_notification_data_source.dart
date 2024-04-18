@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chat_app/features/app_user/data/models/user_response.dart';
 import 'package:chat_app/features/push_notification/data/data_source/push_notification_data_source.dart';
 import 'package:chat_app/features/push_notification/data/model/push_notification_response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +12,7 @@ class FirebasePushNotificationDataSource extends PushNotificationDataSource {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin _notificationPlugin =
       FlutterLocalNotificationsPlugin();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Future<bool> requestPermission() async {
@@ -66,8 +68,7 @@ class FirebasePushNotificationDataSource extends PushNotificationDataSource {
       "to": user.token,
       "notification": {"title": user.name, "body": message}
     };
-    String serverKey =
-        "AAAAYW_Vdmg:APA91bFmrX6XHQeDJJYGXZMSTs0vow4el1Z5A32FUA_D0KqX98CUnB5Kd8VohWQQ29NpWMbcxX3hDIVXrkMxSA0wHEBRvcMr0gAs6-qCw3pd_z58EmIPojT7KpKaMoWFaf-W4OdlSbuk";
+    String serverKey = await _getServerKeyFromFirestore();
 
     await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
@@ -75,5 +76,13 @@ class FirebasePushNotificationDataSource extends PushNotificationDataSource {
           'Authorization': 'key=$serverKey',
         },
         body: jsonEncode(body));
+  }
+
+  Future<String> _getServerKeyFromFirestore() async {
+    return await _firestore
+        .collection("server_key")
+        .doc("server_key")
+        .get()
+        .then((value) => value.data()!["server_key"]);
   }
 }
