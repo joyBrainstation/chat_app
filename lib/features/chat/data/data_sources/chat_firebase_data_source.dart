@@ -21,6 +21,7 @@ class ChatFirebaseDataSource extends ChatDataSource {
           .collection(_chatRoomPath)
           .doc(chatRoomId)
           .collection(_chatCollectionPath)
+          .orderBy("time", descending: true)
           .get();
       List<ChatResponse> chats = List<ChatResponse>.from(
         snapshot.docs.map(
@@ -76,20 +77,18 @@ class ChatFirebaseDataSource extends ChatDataSource {
   Stream<List<ChatResponse>> getNewChatStream(
     String uid,
     String? chatRoomId,
-
   ) {
     chatRoomId = chatRoomId ?? _getPossibleChatRoomId(uid).first;
     return _firestore
         .collection(_chatRoomPath)
         .doc(chatRoomId)
         .collection(_chatCollectionPath)
-        .orderBy("time")
+        .orderBy("time", descending: true)
         .snapshots()
         .map(_getChatResponseFromSnapshot);
   }
 
   List<ChatResponse> _getChatResponseFromSnapshot(QuerySnapshot snapshot) {
-
     return snapshot.docChanges
         .map((doc) => ChatResponse.fromJson(
             doc.doc.data() as Map<String, dynamic>, doc.doc.id))
