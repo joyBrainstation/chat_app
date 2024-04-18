@@ -9,4 +9,5 @@ abstract class PushNotificationDataSource {
   void initializePushNotification();
 
   Future<void> sendPushNotification(UserResponse user, String message);
+
 }

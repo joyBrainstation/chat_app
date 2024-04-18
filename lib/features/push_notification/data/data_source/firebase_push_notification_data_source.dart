@@ -60,6 +60,12 @@ class FirebasePushNotificationDataSource extends PushNotificationDataSource {
     _notificationPlugin.initialize(
       initializationSettings,
     );
+
+    FirebaseMessaging.onMessage.listen((event) {
+      PushNotificationResponse notification = PushNotificationResponse(
+          event.notification?.title ?? "", event.notification?.body ?? "");
+      onNotificationReceived(notification);
+    });
   }
 
   @override
