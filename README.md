@@ -10,9 +10,8 @@ This is a basic chat application built with Flutter for mobile and Firebase for 
 
 # Demonstration
 Here is a video demonstration of the application
-[![Video Demonstration (https://img.youtube.com/vi/2644ppEqqUM/0.jpg)](https://www.youtube.com/watch?v=2644ppEqqUM)
 
-[![Rick Astley - Never Gonna Give You Up](https://img.youtube.com/vi/2644ppEqqUM/0.jpg)](https://www.youtube.com/watch?v=2644ppEqqUM)
+[![Video Demonstration - Chat app](https://img.youtube.com/vi/2644ppEqqUM/0.jpg)](https://www.youtube.com/watch?v=2644ppEqqUM)
 
 # Running the app
 The app designed in such a way that it can have multiple build environment.
